@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duelo Político — TikTok LIVE</title>
+<style>
+:root{--bg:#090d18;--panel:#121a2b;--muted:#9eabc3;--white:#f5f7ff;--red:#ff4b5c;--blue:#43a5ff;--gold:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172443,#090d18 68%);color:var(--white);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.tag{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:12px}.title{font-size:clamp(28px,4vw,48px);font-weight:950;line-height:1;margin:8px 0}.sub{color:var(--muted);margin-top:8px}.live{border:1px solid #31415f;background:#101a2d;padding:10px 14px;border-radius:12px;color:#c9d8f7;font-weight:800}
+.scoreboard{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}.fighter{background:linear-gradient(145deg,#1b263d,#111827);border:1px solid #34425b;border-radius:20px;padding:20px;position:relative;overflow:hidden}.fighter.left{border-top:4px solid var(--red)}.fighter.right{border-top:4px solid var(--blue)}.fighter h2{margin:0;font-size:clamp(24px,3vw,36px)}.role{color:var(--muted);font-size:13px;margin:6px 0 16px}.points{font-size:42px;font-weight:950}.bar{height:12px;background:#263249;border-radius:20px;overflow:hidden;margin:12px 0}.fill{height:100%;width:0%;transition:width .35s;border-radius:20px}.left .fill{background:linear-gradient(90deg,#ff304a,#ff8a80)}.right .fill{background:linear-gradient(90deg,#267dff,#64d8ff)}.quote{min-height:76px;background:#0a1020;border:1px solid #293650;border-radius:14px;padding:14px;color:#e5eaf7;line-height:1.4}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.panel{background:#111a2b;border:1px solid #2c3b55;border-radius:18px;padding:18px}.panel h3{margin:0 0 12px;font-size:18px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:12px;padding:13px 12px;font-weight:850;cursor:pointer;color:white;background:#273650}.btn:hover{filter:brightness(1.18)}.red{background:#b92d42}.blue{background:#1c67b9}.gold{background:#88651c}.neutral{background:#303b50}.cmds{color:var(--muted);font-size:13px;line-height:1.7}.cmds code{color:#fff;background:#202c42;border-radius:5px;padding:3px 6px}.feed{height:170px;overflow:auto;background:#0a1020;border:1px solid #283650;border-radius:12px;padding:10px;font-size:13px}.feed div{padding:5px 2px;border-bottom:1px solid #1c2940}.feed b{color:var(--gold)}.row{display:flex;gap:8px;margin-top:10px}.row input{min-width:0;flex:1;background:#080e1a;color:white;border:1px solid #33425e;border-radius:10px;padding:12px}.row button{white-space:nowrap}.status{font-size:12px;color:var(--muted);margin-top:12px}.foot{margin:18px 0;color:#8593ad;font-size:12px;line-height:1.5}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#24334e;color:#d5e5ff;font-size:11px;font-weight:800}
+@media(max-width:760px){.wrap{padding:14px}.grid{grid-template-columns:1fr}.scoreboard{gap:10px}.fighter{padding:14px}.points{font-size:34px}.actions{grid-template-columns:1fr 1fr}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div><div class="tag">JOGO DE DEBATE • SÁTIRA POLÍTICA</div><div class="title">DUelo político</div><div class="sub">A live decide quem vence o round — voto do chat e presentes, quando conectados.</div></div><div class="live">● MODO OVERLAY 16:9</div></header>
+<section class="scoreboard">
+<article class="fighter left"><div class="pill">TIME VERMELHO</div><h2>Luiz Inácio Lula da Silva</h2><div class="role">Personagem de sátira • falas fictícias</div><div class="points" id="scoreL">0 <span style="font-size:14px;color:var(--muted)">pontos</span></div><div class="bar"><div class="fill" id="barL"></div></div><div class="quote" id="quoteL">“Vamos ver se o chat aguenta um debate sem virar torcida organizada!”</div></article>
+<article class="fighter right"><div class="pill">TIME AZUL</div><h2>Flávio Bolsonaro</h2><div class="role">Personagem de sátira • falas fictícias</div><div class="points" id="scoreF">0 <span style="font-size:14px;color:var(--muted)">pontos</span></div><div class="bar"><div class="fill" id="barF"></div></div><div class="quote" id="quoteF">“Quero ver argumento forte, porque gritar mais alto não conta como proposta!”</div></article>
+</section>
+<section class="grid">
+<div class="panel"><h3>🎮 Controle do jogo</h3><div class="actions">
+<button class="btn red" onclick="vote('lula',1,'Voto manual no Lula')">+1 voto Lula</button><button class="btn blue" onclick="vote('flavio',1,'Voto manual no Flávio')">+1 voto Flávio</button>
+<button class="btn red" onclick="vote('lula',5,'Presente simulado: Lula +5')">🎁 Simular presente → Lula</button><button class="btn blue" onclick="vote('flavio',5,'Presente simulado: Flávio +5')">🎁 Simular presente → Flávio</button>
+<button class="btn gold" onclick="nextRound()">⚡ Próximo round</button><button class="btn neutral" onclick="resetGame()">↻ Zerar partida</button>
+</div><div class="status" id="roundStatus">Round 1 • Aguardando votos</div><h3 style="margin-top:20px">💬 Testar comando do chat</h3><div class="row"><input id="command" placeholder="Ex.: !lula ou !flavio"><button class="btn neutral" onclick="submitCommand()">Enviar</button></div><div class="cmds" style="margin-top:10px">Comandos demonstrativos: <code>!lula</code> <code>!flavio</code> <code>!votar lula</code> <code>!votar flavio</code> <code>!round</code> <code>!placar</code></div></div>
+<aside class="panel"><h3>📣 Chat da live</h3><div class="feed" id="feed" aria-live="polite"></div><div class="status">Modo de teste local. Comandos digitados aqui não leem automaticamente o chat do TikTok.</div><h3 style="margin-top:18px">🔌 Integração</h3><div class="cmds">Para votos reais: configure no TKStudio/Gift Vote o mapeamento de presentes/eventos para ações de navegador ou URL de evento, se o plugin oferecer esse recurso. Adicione este arquivo como fonte de navegador no TikTok LIVE Studio. O jogo abre e funciona localmente; eventos reais só entram após configurar e testar a ponte do plugin.</div></aside>
+</section>
+<div class="foot">Aviso: as falas são humorísticas e fictícias, não declarações reais dos políticos. Presentes são simulados neste arquivo; não há conexão automática com a API do TikTok nem leitura de chat sem um conector compatível.</div>
+</main>
+<script>
+let L=0,F=0,round=1,comments=0;
+const banterL=[
+'“Meu rival fala como se estivesse num debate, mas às vezes parece que está disputando o troféu de frase de efeito.”',
+'“Ô Flávio, menos pose de campeão e mais proposta concreta, meu caro!”',
+'“Se ironia desse voto, hoje a gente precisava de uma urna do tamanho do Maracanã.”',
+'“O adversário trouxe discurso de impacto; agora falta o impacto na vida de quem assiste.”'];
+const banterF=[
+'“Lula, seu discurso tem tantas voltas que precisava de GPS para chegar numa resposta!”',
+'“Meu adversário promete um espetáculo, mas eu vim cobrar o roteiro e a conta.”',
+'“Falar bonito é fácil; difícil é convencer esse chat sem apelar para bordão.”',
+'“Se confiança valesse ponto, os dois já tinham ganhado. Agora vamos aos argumentos!”'];
+function log(msg){const f=document.getElementById('feed');const d=document.createElement('div');d.innerHTML=msg;f.appendChild(d);f.scrollTop=f.scrollHeight}
+function render(){document.getElementById('scoreL').innerHTML=L+' <span style="font-size:14px;color:var(--muted)">pontos</span>';document.getElementById('scoreF').innerHTML=F+' <span style="font-size:14px;color:var(--muted)">pontos</span>';let max=Math.max(L,F,1);document.getElementById('barL').style.width=(L/max*100)+'%';document.getElementById('barF').style.width=(F/max*100)+'%';document.getElementById('roundStatus').textContent='Round '+round+' • '+(L===F?'Empate no placar':L>F?'Lula na frente':'Flávio na frente')}
+function vote(team,n,reason){if(team==='lula'){L+=n;document.getElementById('quoteL').textContent=banterL[Math.floor(Math.random()*banterL.length)]}else{F+=n;document.getElementById('quoteF').textContent=banterF[Math.floor(Math.random()*banterF.length)]}render();log('<b>'+esc(reason)+'</b> — '+(team==='lula'?'Time Lula':'Time Flávio')+' +'+n)}
+function nextRound(){round++;document.getElementById('quoteL').textContent=banterL[(round-1)%banterL.length];document.getElementById('quoteF').textContent=banterF[(round-1)%banterF.length];render();log('<b>ROUND '+round+'</b> começou! Chat, escolham seu lado.')}
+function resetGame(){L=0;F=0;round=1;document.getElementById('feed').innerHTML='';document.getElementById('quoteL').textContent='“Vamos ver se o chat aguenta um debate sem virar torcida organizada!”';document.getElementById('quoteF').textContent='“Quero ver argumento forte, porque gritar mais alto não conta como proposta!”';render();log('<b>Partida reiniciada.</b>')}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function submitCommand(){const el=document.getElementById('command');const s=el.value.trim().toLowerCase();el.value='';if(!s)return;log('Chat: <b>'+esc(s)+'</b>');if(s==='!lula'||s==='!votar lula')vote('lula',1,'Comando '+s);else if(s==='!flavio'||s==='!votar flavio'||s==='!votar flávio')vote('flavio',1,'Comando '+s);else if(s==='!round')nextRound();else if(s==='!placar')log('<b>Placar:</b> Lula '+L+' × '+F+' Flávio');else log('Comando não reconhecido. Use !lula, !flavio, !round ou !placar.')}
+document.getElementById('command').addEventListener('keydown',e=>{if(e.key==='Enter')submitCommand()});
+render();log('<b>Sistema iniciado.</b> Use os botões ou teste um comando acima.');
+</script></body></html>
